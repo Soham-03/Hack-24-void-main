@@ -132,14 +132,14 @@ const UnplugLanding: React.FC = () => {
     }
   }, [volume]);
 
-  // useEffect(() => {
-  //   attemptAutoplay()
-  //   if (isPlaying) {
-  //     localStorage.setItem('audioPlayState', 'playing');
-  //   } else {
-  //     localStorage.removeItem('audioPlayState');
-  //   }
-  // }, [isPlaying]);
+  useEffect(() => {
+    attemptAutoplay()
+    if (isPlaying) {
+      localStorage.setItem('audioPlayState', 'playing');
+    } else {
+      localStorage.removeItem('audioPlayState');
+    }
+  }, [isPlaying]);
 
   // Effect for Countdown Timer
   useEffect(() => {
@@ -163,29 +163,29 @@ const UnplugLanding: React.FC = () => {
     attemptAutoplay()
 
     // Add interaction listeners to enable autoplay
-    // const handleInteraction = () => {
-    //   attemptAutoplay();
-    //   // Remove listeners after first interaction
-    //   document.removeEventListener('click', handleInteraction);
-    //   document.removeEventListener('touchstart', handleInteraction);
-    // };
+    const handleInteraction = () => {
+      attemptAutoplay();
+      // Remove listeners after first interaction
+      document.removeEventListener('click', handleInteraction);
+      document.removeEventListener('touchstart', handleInteraction);
+    };
 
-    // document.addEventListener('click', handleInteraction);
-    // document.addEventListener('touchstart', handleInteraction);
+    document.addEventListener('click', handleInteraction);
+    document.addEventListener('touchstart', handleInteraction);
 
-    // // Autoplay on page load with user interaction
-    // const handlePageLoad = () => {
-    //   attemptAutoplay();
-    //   window.removeEventListener('load', handlePageLoad);
-    // };
+    // Autoplay on page load with user interaction
+    const handlePageLoad = () => {
+      attemptAutoplay();
+      window.removeEventListener('load', handlePageLoad);
+    };
 
-    // window.addEventListener('load', handlePageLoad);
+    window.addEventListener('load', handlePageLoad);
 
-    // return () => {
-    //   document.removeEventListener('click', handleInteraction);
-    //   document.removeEventListener('touchstart', handleInteraction);
-    //   window.removeEventListener('load', handlePageLoad);
-    // };
+    return () => {
+      document.removeEventListener('click', handleInteraction);
+      document.removeEventListener('touchstart', handleInteraction);
+      window.removeEventListener('load', handlePageLoad);
+    };
   }, [attemptAutoplay]);
 
 
@@ -246,17 +246,16 @@ const UnplugLanding: React.FC = () => {
       }
     }
   };
-
   const handleDownload = async () => {
     try {
-      const response = await fetch(acceptanceLetterUrl);
+      const response = await fetch('/2.jpg'); // Update with your image path
       if (!response.ok) throw new Error('Download failed');
-
+      
       const blob = await response.blob();
       const url = window.URL.createObjectURL(blob);
       const link = document.createElement('a');
       link.href = url;
-      link.download = "unplug_acceptance_letter.pdf";
+      link.download = "unplug_acceptance_letter.jpg";
       document.body.appendChild(link);
       link.click();
       document.body.removeChild(link);
@@ -361,7 +360,7 @@ const UnplugLanding: React.FC = () => {
                 <Play className="w-6 h-6" />
               )}
             </button>
-            <p className="text-lg text-gray-400">vibes for your acceptance letter</p>
+            <p className="text-lg text-gray-400">come vibe with us</p>
             <div className="flex items-center space-x-2">
               <Volume2 className="w-6 h-6 text-gray-500" />
               <input
@@ -384,24 +383,30 @@ const UnplugLanding: React.FC = () => {
         </div>
 
         {/* Acceptance Letter Button */}
-        <div
-          data-animate="letter"
-          className="text-center space-y-6"
-        >
-          <p className="text-2xl text-gray-400">first things first,</p>
-          <button
-            onClick={handleDownload}
-            className="group relative px-12 py-6 rounded-lg bg-gradient-to-r from-blue-500/20 via-purple-500/20 to-blue-500/20 hover:from-blue-500/30 hover:via-purple-500/30 hover:to-blue-500/30 transition-all duration-300 overflow-hidden"
-          >
-            <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/5 to-transparent translate-x-[-200%] group-hover:translate-x-[200%] transition-transform duration-1000" />
-            <span className="relative z-10 flex items-center justify-center space-x-4 text-2xl">
-              <span className="font-light tracking-wide group-hover:text-blue-400 transition-colors duration-300">
-                your acceptance letter
-              </span>
-              <Download className="w-6 h-6 group-hover:-translate-y-1 group-hover:text-blue-400 transition-all duration-300" />
-            </span>
-          </button>
-        </div>
+{/* Acceptance Letter Button */}
+<div
+  data-animate="letter"
+  className="text-center space-y-6"
+>
+  <p className="text-2xl text-gray-400">first things first,</p>
+  <button 
+    onClick={handleDownload}
+    className="group relative px-12 py-6 rounded-lg bg-gradient-to-r from-blue-500/20 via-purple-500/20 to-blue-500/20 hover:from-blue-500/30 hover:via-purple-500/30 hover:to-blue-500/30 transition-all duration-300 overflow-hidden"
+  >
+    <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/5 to-transparent translate-x-[-200%] group-hover:translate-x-[200%] transition-transform duration-1000" />
+    <span className="relative z-10 flex items-center justify-center space-x-4 text-2xl">
+      <span className="font-light tracking-wide group-hover:text-blue-400 transition-colors duration-300">
+       view letter
+      </span>
+      <Download className="w-6 h-6 group-hover:-translate-y-1 group-hover:text-blue-400 transition-all duration-300" />
+    </span>
+  </button>
+  
+  {/* Witty text below button */}
+  <p className="text-lg text-gray-500 mt-4">
+    Post this and tag us. you've earned your bragging rights 🚀
+  </p>
+</div>
 
         {/* Rotating Phrases */}
         <div
