@@ -61,6 +61,12 @@ body {
     --chart-5: 340 75% 55%;
   }
 }
+@font-face {
+  font-family: 'BeachFont';
+  src: url('/TAN-Nimbus.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+}
 
 @layer base {
   * {

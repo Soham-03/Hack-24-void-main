@@ -57,7 +57,11 @@ export default {
   			sm: 'calc(var(--radius) - 4px)'
   		},
   		animation: {
-  			ripple: 'ripple var(--duration,2s) ease calc(var(--i, 0)*.2s) infinite'
+			'slide-up': 'slideUp 0.3s ease-out',
+			  'slide-down': 'slideDown 0.3s ease-out',
+			  'fade-in': 'fadeIn 0.5s ease-out',
+			  'gradient': 'gradient 3s ease infinite',
+  			ripple: 'ripple var(--duration,2s) ease calc(var(--i, 0)*.2s) infinite'	
   		},
   		keyframes: {
   			ripple: {
@@ -66,9 +70,25 @@ export default {
   				},
   				'50%': {
   					transform: 'translate(-50%, -50%) scale(0.9)'
-  				}
-  			}
-  		}
+  				},
+  			},
+			  slideUp: {
+				'0%': { transform: 'translateY(100%)', opacity: '0' },
+				'100%': { transform: 'translateY(0)', opacity: '1' },
+			  },
+			  slideDown: {
+				'0%': { transform: 'translateY(-100%)', opacity: '0' },
+				'100%': { transform: 'translateY(0)', opacity: '1' },
+			  },
+			  fadeIn: {
+				'0%': { opacity: '0' },
+				'100%': { opacity: '1' },
+			  },
+			  gradient: {
+				'0%, 100%': { backgroundPosition: '0% 50%' },
+				'50%': { backgroundPosition: '100% 50%' },
+			  }
+  		},
   	}
   },
   plugins: [require("tailwindcss-animate")],
